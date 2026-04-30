@@ -19,4 +19,18 @@ public class RoleDAO {
 
 	}
 
+	public void update(RoleDTO dto) {
+		entitymanager.merge(dto);
+
+	}
+	
+	public void delete(RoleDTO dto) {
+		entitymanager.remove(dto);
+		
+	}
+	public RoleDTO findByPk(long pk) {
+		RoleDTO dto = entitymanager.find(RoleDTO.class, pk); // find by id
+		return dto;
+	} 
+
 }
