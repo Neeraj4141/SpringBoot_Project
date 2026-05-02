@@ -1,5 +1,7 @@
 package com.rays.ctl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +54,7 @@ public class RoleCtl {
 
 		RoleDTO dto = new RoleDTO();
 
+		dto.setId(form.getId());
 		dto.setName(form.getName());
 		dto.setDescription(form.getDiscription());
 
@@ -67,33 +70,53 @@ public class RoleCtl {
 
 	@PostMapping("Delete/{ids}")
 	public ORSResponse delete(@PathVariable(required = false) long[] ids) {
-		
+
 		ORSResponse res = new ORSResponse();
-		
+
 		if (ids != null && ids.length > 0) {
-	
-		for (long id : ids) {
-			roleservice.delete(id);
-			res.addMessage("role deleted successfully");
-			res.setSuccess(true);
-		}
-		}else {
+
+			for (long id : ids) {
+				roleservice.delete(id);
+				res.addMessage("role deleted successfully");
+				res.setSuccess(true);
+			}
+		} else {
 			res.addMessage("select at least one record");
 		}
 		return res;
 	}
-	
+
 	@GetMapping("Get/{id}")
-	public ORSResponse get (@PathVariable(required = false) long id) {
+	public ORSResponse get(@PathVariable(required = false) long id) {
 		ORSResponse res = new ORSResponse();
 		RoleDTO dto = roleservice.findById(id);
-		if(dto != null) {
+		if (dto != null) {
 			res.addData(dto);
 			res.setSuccess(true);
-		}else {
+		} else {
 			res.addMessage("Role not found im DataBase");
 		}
 		return res;
+	}
+
+	@GetMapping("search/{pageNo}")
+	public ORSResponse serach(@PathVariable(required = false) int pageNo) {
+
+		int pageSize = 5;
+
+		ORSResponse res = new ORSResponse();
+		RoleDTO dto = new RoleDTO();
+		List<RoleDTO> list = roleservice.search(dto, pageNo, pageSize);
+
+		if (list != null) {
+			res.addData(list);
+			res.setSuccess(true);
+
+		} else {
+			res.addMessage("record not found");
+		}
+		return res;
+
 	}
 	
 

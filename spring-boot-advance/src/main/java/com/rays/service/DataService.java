@@ -1,46 +1,46 @@
 package com.rays.service;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rays.dao.UserDAO;
-import com.rays.dto.UserDTO;
+import com.rays.dao.DataDAO;
+import com.rays.dto.DataDTO;
 
 @Service
-public class UserService {
+public class DataService {
 
 	@Autowired
-	public UserDAO userdao;
+	public DataDAO datadao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long add(UserDTO dto) {
-		long pk = userdao.add(dto);
-		return pk;
+	public long add(DataDTO dto) {
+		long id = datadao.add(dto);
+		return id;
+
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void update(UserDTO dto) {
-		userdao.update(dto);
+	public void update(DataDTO dto) {
+		datadao.update(dto);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(long id) {
 		try {
-			UserDTO dto = findById(id);
-			userdao.delete(dto);
+			DataDTO dto = findByPk(id);
+			datadao.delete(dto);
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
 
-	public UserDTO findById(long pk) {
-		UserDTO dto = userdao.findById(pk);
+	@Transactional(readOnly = true)
+	public DataDTO findByPk(long pk) {
+		DataDTO dto = datadao.findByPk(pk);
 		return dto;
-
 	}
 
 }

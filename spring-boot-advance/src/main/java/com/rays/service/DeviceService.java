@@ -1,46 +1,55 @@
 package com.rays.service;
 
-import org.apache.catalina.User;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rays.dao.UserDAO;
-import com.rays.dto.UserDTO;
+import com.rays.dao.DeviceDAO;
+import com.rays.dto.DeviceDTO;
+
 
 @Service
-public class UserService {
+public class DeviceService {
 
 	@Autowired
-	public UserDAO userdao;
+	public DeviceDAO dao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long add(UserDTO dto) {
-		long pk = userdao.add(dto);
+	public long add(DeviceDTO dto) {
+		long pk = dao.add(dto);
 		return pk;
+
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void update(UserDTO dto) {
-		userdao.update(dto);
+	public void update(DeviceDTO dto) {
+		dao.update(dto);
+
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(long id) {
 		try {
-			UserDTO dto = findById(id);
-			userdao.delete(dto);
+			DeviceDTO dto = findByPk(id);
+			dao.delete(dto);
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 
-	public UserDTO findById(long pk) {
-		UserDTO dto = userdao.findById(pk);
+	@Transactional(readOnly = true)
+	public DeviceDTO findByPk(long id) {
+		DeviceDTO dto = dao.findByPk(id);
 		return dto;
-
 	}
 
+
+	public List<DeviceDTO> search(DeviceDTO dto, int pageNo, int pageSize){
+		return dao.search(dto, pageNo, pageSize);
+	
+		
+	}
 }

@@ -11,54 +11,49 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.rays.dto.DeviceDTO;
 import com.rays.dto.RoleDTO;
 
 @Repository
-public class RoleDAO {
+public class DeviceDAO {
 
 	@PersistenceContext
 	public EntityManager entitymanager;
 
-	public long add(RoleDTO dto) {
+	public long add(DeviceDTO dto) {
 		entitymanager.persist(dto);
 		return dto.getId();
 
 	}
 
-	public void update(RoleDTO dto) {
+	public void update(DeviceDTO dto) {
 		entitymanager.merge(dto);
-
 	}
 
-	public void delete(RoleDTO dto) {
+	public void delete(DeviceDTO dto) {
 		entitymanager.remove(dto);
 
 	}
 
-	public RoleDTO findByPk(long pk) {
-		RoleDTO dto = entitymanager.find(RoleDTO.class, pk); // find by id
+	public DeviceDTO findByPk(long id) {
+		DeviceDTO dto = entitymanager.find(DeviceDTO.class, id);
 		return dto;
+
 	}
 
-	public List<RoleDTO> search(RoleDTO dto, int pageNo, int pageSize) {
+	public List<DeviceDTO> search(DeviceDTO dto, int pageNo, int pageSize) {
 
-		List<RoleDTO> list = null;
+		List<DeviceDTO> list = null;
 
-		// CriteriaBuilder SQL query programmatically banane ke kaam aata hai(sql query
-		// banane ke liye)
 		CriteriaBuilder builder = entitymanager.getCriteriaBuilder();
 
-		// RoleDTO type ki query banate hain (result RoleDTO hoga)(CriteriaQueiry DTO
-		// Type ki query banane ke liye)
-		CriteriaQuery<RoleDTO> cq = builder.createQuery(RoleDTO.class);
+		CriteriaQuery<DeviceDTO> cq = builder.createQuery(DeviceDTO.class);
 
-		// Query kis table/entity par chalegi - yaha RoleDTO table
-		Root<RoleDTO> qroot = cq.from(RoleDTO.class);
+		Root<DeviceDTO> qroot = cq.from(DeviceDTO.class);
 
-		// final query = select * from RoleDTO
 		cq.select(qroot);
 
-		TypedQuery<RoleDTO> tq = entitymanager.createQuery(cq);
+		TypedQuery<DeviceDTO> tq = entitymanager.createQuery(cq);
 
 		if (pageSize > 0) {
 			tq.setFirstResult(pageNo * pageSize);
@@ -69,5 +64,4 @@ public class RoleDAO {
 
 		return list;
 	}
-
 }

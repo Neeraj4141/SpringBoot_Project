@@ -4,33 +4,34 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.rays.dto.DataDTO;
 import com.rays.dto.UserDTO;
 
 @Repository
-public class UserDAO {
+public class DataDAO {
 
 	@PersistenceContext
 	public EntityManager entityManager;
 
-	public long add(UserDTO dto) {
+	public long add(DataDTO dto) {
 		entityManager.persist(dto);
 		return dto.getId();
 
 	}
 
-	public void update(UserDTO dto) {
+	public void update(DataDTO dto) {
 		entityManager.merge(dto);
 	}
 
-	public void delete(UserDTO dto) {
+	public void delete(DataDTO dto) {
 		entityManager.remove(dto);
-
 	}
 
-	public UserDTO findById(long pk) {
-		UserDTO dto = entityManager.find(UserDTO.class, pk);
+	public DataDTO findByPk(long pk) {
+		DataDTO dto = entityManager.find(DataDTO.class, pk);
 		return dto;
-	}
 
+	}
 }
