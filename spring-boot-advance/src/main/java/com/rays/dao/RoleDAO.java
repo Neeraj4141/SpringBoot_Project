@@ -1,5 +1,6 @@
 package com.rays.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
@@ -54,6 +56,21 @@ public class RoleDAO {
 
 		// Query kis table/entity par chalegi - yaha RoleDTO table
 		Root<RoleDTO> qroot = cq.from(RoleDTO.class);
+
+		// Predicate is use to hold multiple search filter in jpa
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
+		if (dto != null) {
+			if (dto.getId() != null && dto.getId() > 0) {
+				predicateList.add(builder.equal(qroot.get("id"), dto.getId()));
+			}
+			if (dto.getName() != null && dto.getName().length() > 0) {
+				predicateList.add(builder.like(qroot.get("name"), dto.getName() + "%"));
+			}
+			if (dto.getDescription() != null && dto.getDescription().length() > 0) {
+				predicateList.add(builder.like(qroot.get("description"), dto.getDescription() + "%"));
+			}
+		}
 
 		// final query = select * from RoleDTO
 		cq.select(qroot);

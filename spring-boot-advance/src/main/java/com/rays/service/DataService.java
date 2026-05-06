@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,6 +43,12 @@ public class DataService {
 	public DataDTO findByPk(long pk) {
 		DataDTO dto = datadao.findByPk(pk);
 		return dto;
+	}
+
+	@Transactional(readOnly = true)
+	public List<DataDTO> search(DataDTO dto, int pageNo, int pageSize) {
+		return datadao.serach(dto, pageNo, pageSize);
+
 	}
 
 }

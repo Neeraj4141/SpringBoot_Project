@@ -1,5 +1,7 @@
 package com.rays.ctl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -90,6 +92,27 @@ public class DataCtl {
 			res.addMessage("Role not found im DataBase");
 		}
 		return res;
+	}
+
+	@GetMapping("search/{pageNo}")
+	public ORSResponse search(@PathVariable(required = false) int pageNo) {
+
+		int pageSize = 5;
+
+		List<DataDTO> list = null;
+		ORSResponse res = new ORSResponse();
+		DataDTO dto = new DataDTO();
+
+		list = service.search(dto, pageNo, pageSize);
+		if (list != null) {
+			res.addData(list);
+			res.setSuccess(true);
+
+		} else {
+			res.addMessage("Record not found");
+		}
+		return res;
+
 	}
 
 }
