@@ -2,7 +2,10 @@ package com.rays.ctl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,14 +27,19 @@ public class RoleCtl extends BaseCtl {
 	RoleService roleservice;
 
 	@PostMapping("Save")
-	public ORSResponse save(@RequestBody RoleForm form) {
+	public ORSResponse save(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse();
+
+		res = validate(bindingResult);
+		if (res.isSuccess() == false) {
+			return res;
+		}
 
 		RoleDTO dto = new RoleDTO();
 
 		dto.setName(form.getName());
-		dto.setDescription(form.getDiscription());
+		dto.setDescription(form.getDescription());
 
 		long id = roleservice.add(dto);
 
@@ -57,7 +65,7 @@ public class RoleCtl extends BaseCtl {
 
 		dto.setId(form.getId());
 		dto.setName(form.getName());
-		dto.setDescription(form.getDiscription());
+		dto.setDescription(form.getDescription());
 
 		roleservice.update(dto);
 
@@ -119,6 +127,5 @@ public class RoleCtl extends BaseCtl {
 		return res;
 
 	}
-	
 
 }

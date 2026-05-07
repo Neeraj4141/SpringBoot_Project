@@ -32,6 +32,9 @@ public class UserDTO extends BaseDTO {
 
 	@Column(name = "ROLENAME", length = 50)
 	private String roleName;
+	
+	@Column(name = "IMAGEID")
+	private Long imageId;
 
 	public String getFirstName() {
 		return firstName;
@@ -88,5 +91,15 @@ public class UserDTO extends BaseDTO {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
+	}
+	
+	
 
 }

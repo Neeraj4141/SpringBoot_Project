@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.rays.dto.UserDTO;
 public class UserDAO {
 
 	@Autowired
-	RoleDAO roledao;
+	public RoleDAO roledao;
 
 	@PersistenceContext
 	public EntityManager entityManager;
@@ -48,13 +49,9 @@ public class UserDAO {
 	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
 
 		List<UserDTO> list = null;
-
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-
 		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
-
 		Root<UserDTO> qroot = cq.from(UserDTO.class);
-
 		cq.select(qroot);
 
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
@@ -74,6 +71,25 @@ public class UserDAO {
 			dto.setRoleName(rdto.getName());
 		}
 		return dto;
+	}
+
+	public UserDTO findByUniqueKey(String attribute, String value) {
+		List<UserDTO> list = null;
+
+		UserDTO dto = new UserDTO();
+
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
+		Root<UserDTO> qroot = cq.from(UserDTO.class);
+		Predicate condition = builder.equal(qroot.get(attribute), value);
+		cq.where(condition);
+		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
+		list = tq.getResultList();
+		if (list.size() == 1) {
+			dto = list.get(0);
+		}
+		return dto;
+
 	}
 
 }

@@ -2,14 +2,17 @@ package com.rays.form;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
+import com.rays.dto.RoleDTO;
 
 public class RoleForm extends BaseForm {
 
 	@NotEmpty(message = "name is required")
 	private String name;
+
 	@NotEmpty(message = "description is required")
-	private String discription;
+	private String description;
 
 	public String getName() {
 		return name;
@@ -19,12 +22,20 @@ public class RoleForm extends BaseForm {
 		this.name = name;
 	}
 
-	public String getDiscription() {
-		return discription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDiscription(String discription) {
-		this.discription = discription;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public BaseDTO getDto() {
+		RoleDTO dto = (RoleDTO) initDto(new RoleDTO());
+		dto.setName("name");
+		dto.setDescription("description");
+		return dto;
 	}
 
 }
