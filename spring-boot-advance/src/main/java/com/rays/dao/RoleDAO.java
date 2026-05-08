@@ -60,6 +60,8 @@ public class RoleDAO {
 		// Predicate is use to hold multiple search filter in jpa
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
+		System.out.println(dto);
+
 		if (dto != null) {
 			if (dto.getId() != null && dto.getId() > 0) {
 				predicateList.add(builder.equal(qroot.get("id"), dto.getId()));
@@ -73,7 +75,7 @@ public class RoleDAO {
 		}
 
 		// final query = select * from RoleDTO
-		cq.select(qroot);
+		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
 		TypedQuery<RoleDTO> tq = entitymanager.createQuery(cq);
 

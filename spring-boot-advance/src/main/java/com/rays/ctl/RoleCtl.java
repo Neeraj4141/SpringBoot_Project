@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rays.common.BaseCtl;
@@ -108,13 +109,18 @@ public class RoleCtl extends BaseCtl {
 		return res;
 	}
 
-	@GetMapping("search/{pageNo}")
-	public ORSResponse serach(@PathVariable(required = false) int pageNo) {
+	@RequestMapping(value = "/search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
+	public ORSResponse serach(@RequestBody RoleForm form, @PathVariable(required = false) int pageNo) {
 
 		int pageSize = 5;
 
 		ORSResponse res = new ORSResponse();
 		RoleDTO dto = new RoleDTO();
+
+		dto.setName(form.getName());
+		dto.setId(form.getId());
+		dto.setDescription(form.getDescription());
+		
 		List<RoleDTO> list = roleservice.search(dto, pageNo, pageSize);
 
 		if (list != null) {
