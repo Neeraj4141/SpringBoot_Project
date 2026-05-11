@@ -28,7 +28,7 @@ public class LoginCtl extends BaseCtl {
 	public ORSResponse login(@RequestBody @Validated LoginForm form, BindingResult buindingresult,
 			HttpSession session) {
 
-		ORSResponse res = new ORSResponse();
+		ORSResponse res = new ORSResponse(true);
 
 		res = validate(buindingresult);
 		if (res.isSuccess() == false) {
