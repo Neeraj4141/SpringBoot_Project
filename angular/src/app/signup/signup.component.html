@@ -7,27 +7,35 @@
         <table>
             <tr>
                 <th>FirstName</th>
-                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName" placeholder="Enter FirstName"></td>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName" placeholder="Enter FirstName">
+                    {{form.inputerror.firstName}}
+                </td>
             </tr>
             <tr>
                 <th>LastName</th>
-                <td><input type="text" name="lastName"[(ngModel)]="form.data.lastName" placeholder="Enter FirstName"></td>
+                <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName" placeholder="Enter LastName">
+                    {{form.inputerror.lastName}}
+                </td>
             </tr>
             <tr>
                 <th>Login</th>
-                <td><input type="text" name="login"[(ngModel)]="form.data.login" placeholder="Enter Login"></td>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="Enter Login">
+                    {{form.inputerror.loginId}}
+                </td>
+
             </tr>
             <tr>
                 <th>Password</th>
-                <td><input type="text" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password"></td>
+                <td><input type="text" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password">
+                    {{form.inputerror.password}}
+                </td>
             </tr>
             <tr>
                 <th>Date Of Birth</th>
-                <td><input type="date" name="dob" [(ngModel)]="form.data.dob" placeholder="Enter DOB" style="width: 98%;"></td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td><input type="text" name="address" [(ngModel)]="form.data.address" placeholder="Enter Address"></td>
+                <td><input type="date" name="dob" [(ngModel)]="form.data.dob" placeholder="Enter DOB"
+                        style="width: 98%;">
+                    {{form.inputerror.dob}}
+                </td>
             </tr>
             <tr>
                 <th></th>

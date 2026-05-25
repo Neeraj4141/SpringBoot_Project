@@ -1,22 +1,32 @@
 import { Component } from '@angular/core';
+import { HttpserviceService } from '../httpservice.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './signup.component.html'
 })
 export class SignupComponent {
 
+  endpoint: any = "http://localhost:8080/Auth/signup"
+
   form: any = {
-    data: {}
+    data: {},
+    inputerror: {},
+    message: ''
   }
+
+  constructor(public httpService: HttpserviceService) { }
+
   signUp() {
-    console.log('firstName: ' + this.form.data.firstName);
-    console.log('lastName: ' + this.form.data.lastName);
-    console.log('login: ' + this.form.data.login);
-    console.log('password: ' + this.form.data.password);
-    console.log('dob: ' + this.form.data.dob);
-    console.log('address: ' + this.form.data.address);
+    let self = this;
+    this.httpService.post(this.endpoint, this.form.data, (response: any) => {
+      console.log('response === >', response);
+      if (response.success == false && response.result.inputerror) {
+        self.form.inputerror = response.result.inputerror;
+      } else if (response.success == true) {
+        self.form.message = response.result.message;
+      }
+    });
   }
 
 }
