@@ -1,6 +1,7 @@
 package com.rays.ctl;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import com.rays.common.ORSResponse;
 import com.rays.dto.UserDTO;
 import com.rays.form.LoginForm;
 import com.rays.form.UserForm;
+import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserService;
 
 @RestController
@@ -23,6 +25,26 @@ public class LoginCtl extends BaseCtl {
 
 	@Autowired
 	UserService service;
+	
+	@PostMapping("/signup")
+	public ORSResponse save(@RequestBody @Valid UserRegistrationForm form, BindingResult bindingResult) {
+
+		ORSResponse res = new ORSResponse();
+
+		res = validate(bindingResult);
+		if (res.isSuccess() == false) {
+			return res;
+		}
+
+		UserDTO dto = (UserDTO) form.getDto();
+
+		long pk = service.add(dto);
+		res.addData(dto);
+		res.addMessage("User Register successfully");
+		res.setSuccess(true);
+
+		return res;
+	}
 
 	@PostMapping("/login")
 	public ORSResponse login(@RequestBody @Validated LoginForm form, BindingResult buindingresult,
@@ -37,10 +59,10 @@ public class LoginCtl extends BaseCtl {
 
 		UserDTO dto = new UserDTO();
 
-		dto.setLogin(form.getLogin());
+		dto.setLoginId(form.getLogin());
 		dto.setPassword(form.getPassword());
 
-		dto = service.Authenticate(dto.getLogin(), dto.getPassword());
+		dto = service.Authenticate(dto.getLoginId(), dto.getPassword());
 
 		if (dto != null) {
 			session.setAttribute("user", dto);

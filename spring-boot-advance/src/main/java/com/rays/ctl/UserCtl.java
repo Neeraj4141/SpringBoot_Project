@@ -50,7 +50,7 @@ public class UserCtl extends BaseCtl {
 		UserDTO dto = new UserDTO();
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
-		dto.setLogin(form.getLogin());
+		dto.setLoginId(form.getLogin());
 		dto.setPassword(form.getPassword());
 		dto.setDob(form.getDob());
 		dto.setRoleId(form.getRoleId());
@@ -74,7 +74,7 @@ public class UserCtl extends BaseCtl {
 		UserDTO dto = new UserDTO();
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
-		dto.setLogin(form.getLogin());
+		dto.setLoginId(form.getLogin());
 		dto.setPassword(form.getPassword());
 		dto.setDob(form.getDob());
 		dto.setRoleId(form.getRoleId());

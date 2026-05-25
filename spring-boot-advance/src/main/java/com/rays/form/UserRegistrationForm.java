@@ -1,39 +1,33 @@
-package com.rays.dto;
+package com.rays.form;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.rays.common.BaseDTO;
+import com.rays.common.BaseForm;
+import com.rays.dto.UserDTO;
 
-@Entity
-@Table(name = "st_user")
-public class UserDTO extends BaseDTO {
+public class UserRegistrationForm extends BaseForm {
 
-	@Column(name = "FIRSTNAME", length = 50)
+	@NotEmpty(message = "firstName is required")
 	private String firstName;
 
-	@Column(name = "LASTNAME", length = 50)
+	@NotEmpty(message = "lastName is required")
 	private String lastName;
 
-	@Column(name = "LOGIN", length = 50)
+	@NotEmpty(message = "loginId is required")
 	private String loginId;
 
-	@Column(name = "PASSWORD", length = 50)
+	@NotEmpty(message = "password is required")
 	private String password;
 
-	@Column(name = "DOB")
+	@NotNull(message = "Date of birth is required")
 	private Date dob;
 
-	@Column(name = "ROLEID")
-	private Long roleId;
+	private long roleId;
 
-	@Column(name = "ROLENAME", length = 50)
-	private String roleName;
-	
-	@Column(name = "IMAGEID")
 	private Long imageId;
 
 	public String getFirstName() {
@@ -76,20 +70,12 @@ public class UserDTO extends BaseDTO {
 		this.dob = dob;
 	}
 
-	public Long getRoleId() {
+	public long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Long roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
-	}
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
 	}
 
 	public Long getImageId() {
@@ -99,7 +85,20 @@ public class UserDTO extends BaseDTO {
 	public void setImageId(Long imageId) {
 		this.imageId = imageId;
 	}
-	
-	
+
+	@Override
+	public BaseDTO getDto() {
+		// UserDTO dto = (UserDTO) initDto(new UserDTO());
+		UserDTO dto = new UserDTO();
+		dto.setFirstName(firstName);
+		dto.setLastName(lastName);
+		dto.setLoginId(loginId);
+		dto.setPassword(password);
+		dto.setDob(dob);
+		dto.setRoleId(2L);
+//		dto.setImageId(imageId);
+
+		return dto;
+	}
 
 }

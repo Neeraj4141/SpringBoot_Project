@@ -22,6 +22,8 @@ public class UserForm extends BaseForm {
 
 	@NotEmpty(message = "password is required")
 	private String password;
+	
+	
 
 	@NotNull(message = "dob is required")
 	private Date dob;
@@ -91,7 +93,7 @@ public class UserForm extends BaseForm {
 		UserDTO dto = (UserDTO) initDto(new UserDTO());
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
-		dto.setLogin(login);
+		dto.setLoginId(login);
 		dto.setPassword(password);
 		dto.setDob(dob);
 		dto.setRoleId(roleId);
