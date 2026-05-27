@@ -18,13 +18,11 @@ public class UserForm extends BaseForm {
 	private String lastName;
 
 	@NotEmpty(message = "login is required")
-	private String login;
+	private String loginId;
 
 	@NotEmpty(message = "password is required")
 	private String password;
 	
-	
-
 	@NotNull(message = "dob is required")
 	private Date dob;
 
@@ -48,12 +46,12 @@ public class UserForm extends BaseForm {
 		this.lastName = lastName;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getLoginId() {
+		return loginId;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 
 	public String getPassword() {
@@ -93,7 +91,7 @@ public class UserForm extends BaseForm {
 		UserDTO dto = (UserDTO) initDto(new UserDTO());
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
-		dto.setLoginId(login);
+		dto.setLoginId(loginId);
 		dto.setPassword(password);
 		dto.setDob(dob);
 		dto.setRoleId(roleId);

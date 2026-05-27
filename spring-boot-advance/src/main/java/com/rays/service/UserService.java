@@ -57,7 +57,7 @@ public class UserService {
 	public UserDTO Authenticate(String login, String password) {
 
 		UserDTO dto = new UserDTO();
-		dto = userdao.findByUniqueKey("login", login);
+		dto = userdao.findByUniqueKey("loginId", login);
 		if (dto != null && dto.getPassword().equals(password)) {
 			return dto;
 

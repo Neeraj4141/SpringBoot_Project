@@ -2,21 +2,23 @@ package com.rays.form;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
+import com.rays.dto.UserDTO;
 
 public class LoginForm extends BaseForm {
 
 	@NotEmpty(message = "login id required")
-	private String login;
+	private String loginId;
 	@NotEmpty(message = "password id required")
 	private String password;
 
-	public String getLogin() {
-		return login;
+	public String getLoginId() {
+		return loginId;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 
 	public String getPassword() {
@@ -25,6 +27,15 @@ public class LoginForm extends BaseForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public BaseDTO getDto() {
+
+		UserDTO dto = new UserDTO();
+		dto.setLoginId(loginId);
+		dto.setPassword(password);
+		return dto;
 	}
 
 }

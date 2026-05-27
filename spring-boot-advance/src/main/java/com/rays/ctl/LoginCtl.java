@@ -59,7 +59,7 @@ public class LoginCtl extends BaseCtl {
 
 		UserDTO dto = new UserDTO();
 
-		dto.setLoginId(form.getLogin());
+		dto.setLoginId(form.getLoginId());
 		dto.setPassword(form.getPassword());
 
 		dto = service.Authenticate(dto.getLoginId(), dto.getPassword());

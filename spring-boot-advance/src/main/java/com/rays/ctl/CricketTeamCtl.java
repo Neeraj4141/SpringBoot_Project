@@ -45,9 +45,10 @@ public class CricketTeamCtl extends BaseCtl {
 
 		if (id != 0 && id > 0) {
 			res.addData(dto);
+			res.addMessage("Player Added successfully");
 			res.setSuccess(true);
 		} else {
-			res.addMessage("Team added successfully");
+			res.addMessage("Error inn Team Add");
 		}
 		return res;
 

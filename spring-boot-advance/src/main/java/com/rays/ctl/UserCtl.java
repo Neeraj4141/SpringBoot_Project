@@ -50,7 +50,7 @@ public class UserCtl extends BaseCtl {
 		UserDTO dto = new UserDTO();
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
-		dto.setLoginId(form.getLogin());
+		dto.setLoginId(form.getLoginId());
 		dto.setPassword(form.getPassword());
 		dto.setDob(form.getDob());
 		dto.setRoleId(form.getRoleId());
@@ -72,12 +72,7 @@ public class UserCtl extends BaseCtl {
 
 		ORSResponse res = new ORSResponse();
 		UserDTO dto = new UserDTO();
-		dto.setFirstName(form.getFirstName());
-		dto.setLastName(form.getLastName());
-		dto.setLoginId(form.getLogin());
-		dto.setPassword(form.getPassword());
-		dto.setDob(form.getDob());
-		dto.setRoleId(form.getRoleId());
+		dto = (UserDTO) form.getDto();
 
 		service.update(dto);
 
@@ -88,7 +83,7 @@ public class UserCtl extends BaseCtl {
 		return res;
 	}
 
-	@PostMapping("delete/{ids}")
+	@GetMapping("delete/{ids}")
 	public ORSResponse delete(@PathVariable(required = false) long[] ids) {
 
 		ORSResponse res = new ORSResponse();
@@ -122,7 +117,7 @@ public class UserCtl extends BaseCtl {
 
 	}
 
-	@GetMapping("search/{pageNo}")
+	@PostMapping("search/{pageNo}")
 	public ORSResponse search(@PathVariable(required = false) int pageNo) {
 
 		int pageSize = 5;
@@ -183,7 +178,7 @@ public class UserCtl extends BaseCtl {
 			AttachmentDTO attachmentDTO = null;
 
 			if (userDto != null) {
-				attachmentDTO = attservice.findByPk(userDto.getImageId());
+				attachmentDTO = attservice.findByPk(userDto.getImageId());	
 			}
 
 			if (attachmentDTO != null) {
