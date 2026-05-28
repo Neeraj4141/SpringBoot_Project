@@ -1,0 +1,39 @@
+<div align="center">
+
+    <h1>Add CricketTeam</h1>
+
+    <h3 style="color: green;">{{form.message}} </h3>
+    <form (submit)="save()">
+        <table>
+            <tr>
+                <th>Player Name</th>
+                <td><input type="text" name="playerName" [(ngModel)]="form.data.playerName"
+                        placeholder="enter playerName"></td>
+                <td style="color: red;">{{form.inputerror.playerName}}</td>
+            </tr>
+            <tr>
+                <th>Player Address</th>
+                <td><input type="text" name="playerAddress" [(ngModel)]="form.data.playerAddress"
+                        placeholder="enter playerAddress"></td>
+                <td style="color: red;">{{form.inputerror.playerName}}</td>
+            </tr>
+            <tr>
+                <th>Player Type</th>
+                <td><input type="text" name="playerType" [(ngModel)]="form.data.playerType"
+                        placeholder="enter playerType"></td>
+                <td style="color: red;">{{form.inputerror.playerType}}</td>
+            </tr>
+            <tr>
+                <th>Player Age</th>
+                <td><input type="number" name="playerAge" [(ngModel)]="form.data.playerAge"
+                        placeholder="enter playerAge">
+                </td>
+                <td style="color: red;">{{form.inputerror.playerAge}}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="save"></td>
+            </tr>
+        </table>
+    </form>
+</div>

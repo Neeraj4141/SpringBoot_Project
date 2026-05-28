@@ -1,41 +1,42 @@
 <div align="center">
 
     <h1>User Registration</h1>
+    <h3 style="color: green;">{{form.message}} </h3>
 
     <form (submit)="signUp()">
 
         <table>
             <tr>
-                <th>FirstName</th>
-                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName" placeholder="Enter FirstName">
-                    {{form.inputerror.firstName}}
-                </td>
+                <th>First Name</th>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName"
+                        placeholder="enter first name"></td>
+                <td style="color: red;">{{form.inputerror.firstName}}</td>
             </tr>
             <tr>
                 <th>LastName</th>
                 <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName" placeholder="Enter LastName">
-                    {{form.inputerror.lastName}}
                 </td>
+                 <td style="color: red;">{{form.inputerror.lastName}}</td>
             </tr>
             <tr>
                 <th>Login</th>
                 <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="Enter Login">
-                    {{form.inputerror.loginId}}
                 </td>
+                 <td style="color: red;">{{form.inputerror.loginId}}</td>
 
             </tr>
             <tr>
                 <th>Password</th>
-                <td><input type="text" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password">
-                    {{form.inputerror.password}}
+                <td><input type="password" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password">
                 </td>
+                 <td style="color: red;">{{form.inputerror.password}}</td>
             </tr>
             <tr>
                 <th>Date Of Birth</th>
                 <td><input type="date" name="dob" [(ngModel)]="form.data.dob" placeholder="Enter DOB"
                         style="width: 98%;">
-                    {{form.inputerror.dob}}
                 </td>
+                 <td style="color: red;">{{form.inputerror.dob}}</td>
             </tr>
             <tr>
                 <th></th>

@@ -1,5 +1,29 @@
-<h3>Hii, Guest</h3>
-<b><a href="welcome">Welcome</a></b> |
-<b><a href="login">Login</a> |
-<b></b><a href="signup">Signup</a></b>
+<table>
+    <tr>
+        <td>
+            <div *ngIf="islogin()">
+                <h3> Hii, {{form.data.firstName}} ({{form.data.roleName}})</h3>
+                <b><a href="welcome">Welcome</a></b> |
+                <b><a href="user">Add User</a></b> |
+                <b><a href="user-list">User List</a></b> |
+                <b><a href="cricketteam">Add CricketTeam</a></b> |
+                <b><a style="text-decoration: underline;" (click)="logout()">
+                        <font color="blue">Logout</font>
+                    </a></b>
+            </div>
+            <div *ngIf="!islogin()">
+                <h3> Hii, Guest</h3>
+                <b><a href="welcome">Welcome</a></b> |
+                <b><a href="login">Login</a></b> |
+                <b><a href="signup">Signup</a></b> |
+            </div>
+        </td>
+        <td style="padding-left: 1100px;" align="right">
+            <div *ngIf="islogin()">
+                <img src="http://localhost:8080/user/profilePic/{{form.data.id}}" height="90px" width="90px">
+            </div>
+        </td>
+    </tr>
+
+</table>
 <hr>

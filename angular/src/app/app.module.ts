@@ -10,6 +10,10 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CricketteamComponent } from './cricketteam/cricketteam.component';
+import { CricketteamlistComponent } from './cricketteam/cricketteamlist.component';
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     FooterComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    CricketteamComponent,
+    CricketteamlistComponent,
+    UserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

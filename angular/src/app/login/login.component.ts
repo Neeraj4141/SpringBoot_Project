@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
    constructor(public httpService: HttpserviceService, public router: Router) { }
 
-  endpoint: any = "http://localhost:8081/Auth/login"
+  endpoint: any = "http://localhost:8080/Auth/login"
 
   form: any = {
     data: {},
