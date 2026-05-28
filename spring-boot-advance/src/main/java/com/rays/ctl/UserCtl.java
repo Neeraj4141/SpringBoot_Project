@@ -40,31 +40,35 @@ public class UserCtl extends BaseCtl {
 	@PostMapping("save")
 	public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {
 
-		ORSResponse res = new ORSResponse();
+		ORSResponse res = validate(bindingResult);
 
-		res = validate(bindingResult);
-		if (res.isSuccess() == false) {
+		if (!res.isSuccess()) {
 			return res;
 		}
 
-		UserDTO dto = new UserDTO();
-		dto.setFirstName(form.getFirstName());
-		dto.setLastName(form.getLastName());
-		dto.setLoginId(form.getLoginId());
-		dto.setPassword(form.getPassword());
-		dto.setDob(form.getDob());
-		dto.setRoleId(form.getRoleId());
+		UserDTO dto = (UserDTO) form.getDto();
 
-		long id = service.add(dto);
-		if (id != 0 && id > 0) {
-			res.setSuccess(true);
-			res.addMessage("User added successfully");
+		if (dto.getId() != null && dto.getId() > 0) {
+			service.update(dto);
 			res.addData(dto);
-		} else {
-			res.addMessage("error in user add");
-		}
-		return res;
+			res.addMessage("User Updated Successfully..!!");
+			res.setSuccess(true);
 
+		} else {
+
+			try {
+				long pk = service.add(dto);
+				res.addData(dto);
+				res.addMessage("User added Successfully..!!");
+				res.setSuccess(true);
+			} catch (RuntimeException e) {
+				res.addMessage("login already exist");
+				res.setSuccess(false);
+			}
+
+		}
+
+		return res;
 	}
 
 	@PostMapping("update")
@@ -118,25 +122,16 @@ public class UserCtl extends BaseCtl {
 	}
 
 	@PostMapping("search/{pageNo}")
-	public ORSResponse search(@PathVariable(required = false) int pageNo) {
-
-		int pageSize = 5;
-
-		List<UserDTO> list = null;
-
+	public ORSResponse search(@RequestBody UserForm form, @PathVariable int pageNo) {
 		ORSResponse res = new ORSResponse();
-		UserDTO dto = new UserDTO();
-
-		list = service.search(dto, pageNo, pageSize);
-
-		if (list != null) {
-			res.addData(list);
+		UserDTO dto = (UserDTO) form.getDto();
+		int pageSize = 5;
+		List list = service.search(dto, pageNo, pageSize);
+		if (list != null && list.size() > 0) {
 			res.setSuccess(true);
-		} else {
-			res.addMessage("Record Note Found ");
 		}
+		res.addData(list);
 		return res;
-
 	}
 
 	@PostMapping("/profilePic/{userId}")
@@ -168,7 +163,7 @@ public class UserCtl extends BaseCtl {
 		return res;
 
 	}
-	
+
 	@GetMapping("/profilePic/{userId}")
 	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
 		try {
@@ -178,7 +173,7 @@ public class UserCtl extends BaseCtl {
 			AttachmentDTO attachmentDTO = null;
 
 			if (userDto != null) {
-				attachmentDTO = attservice.findByPk(userDto.getImageId());	
+				attachmentDTO = attservice.findByPk(userDto.getImageId());
 			}
 
 			if (attachmentDTO != null) {

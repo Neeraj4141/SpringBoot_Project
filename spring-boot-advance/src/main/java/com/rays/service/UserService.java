@@ -62,7 +62,7 @@ public class UserService {
 			return dto;
 
 		}
-		return null;
+		return dto;
 
 	}
 

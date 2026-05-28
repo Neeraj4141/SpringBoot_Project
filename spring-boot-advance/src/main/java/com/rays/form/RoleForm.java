@@ -32,7 +32,7 @@ public class RoleForm extends BaseForm {
 
 	@Override
 	public BaseDTO getDto() {
-		RoleDTO dto = (RoleDTO) initDto(new RoleDTO());
+		RoleDTO dto = (RoleDTO) initDTO(new RoleDTO());
 		dto.setName("name");
 		dto.setDescription("description");
 		return dto;

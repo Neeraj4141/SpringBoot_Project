@@ -25,7 +25,7 @@ public class LoginCtl extends BaseCtl {
 
 	@Autowired
 	UserService service;
-	
+
 	@PostMapping("/signup")
 	public ORSResponse save(@RequestBody @Valid UserRegistrationForm form, BindingResult bindingResult) {
 
@@ -57,10 +57,7 @@ public class LoginCtl extends BaseCtl {
 			return res;
 		}
 
-		UserDTO dto = new UserDTO();
-
-		dto.setLoginId(form.getLoginId());
-		dto.setPassword(form.getPassword());
+		UserDTO dto = (UserDTO) form.getDto();
 
 		dto = service.Authenticate(dto.getLoginId(), dto.getPassword());
 

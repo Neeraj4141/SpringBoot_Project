@@ -1,5 +1,6 @@
 package com.rays.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,8 @@ public class UserDAO {
 
 	@PersistenceContext
 	public EntityManager entityManager;
+	
+	
 
 	public long add(UserDTO dto) {
 		dto = populate(dto);
@@ -33,6 +36,7 @@ public class UserDAO {
 	}
 
 	public void update(UserDTO dto) {
+		populate(dto);
 		entityManager.merge(dto);
 	}
 
@@ -51,8 +55,20 @@ public class UserDAO {
 		List<UserDTO> list = null;
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
+		List<Predicate> predicateList = new ArrayList<Predicate>();
 		Root<UserDTO> qroot = cq.from(UserDTO.class);
-		cq.select(qroot);
+		if (dto != null) {
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				predicateList.add(builder.like(qroot.get("firstName"), dto.getFirstName() + "%"));
+			}
+			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
+				predicateList.add(builder.like(qroot.get("lastName"), dto.getLastName() + "%"));
+			}
+			if (dto.getRoleId() != null && dto.getRoleId() > 0) {
+				predicateList.add(builder.equal(qroot.get("roleId"), dto.getRoleId()));
+			}
+		}
+		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
 
@@ -74,22 +90,31 @@ public class UserDAO {
 	}
 
 	public UserDTO findByUniqueKey(String attribute, String value) {
+
 		List<UserDTO> list = null;
 
-		UserDTO dto = new UserDTO();
+		UserDTO dto = null;
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
 		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
-		Root<UserDTO> qroot = cq.from(UserDTO.class);
-		Predicate condition = builder.equal(qroot.get(attribute), value);
+
+		Root<UserDTO> qRoot = cq.from(UserDTO.class);
+
+		Predicate condition = builder.equal(qRoot.get(attribute), value);
+
 		cq.where(condition);
+
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
+
 		list = tq.getResultList();
+
 		if (list.size() == 1) {
+			dto = new UserDTO();
 			dto = list.get(0);
 		}
-		return dto;
 
+		return dto;
 	}
 
 }

@@ -16,14 +16,14 @@ public class BaseForm {
 		return null;
 	}
 
-	public BaseDTO initDto(BaseDTO dto) {
+	public BaseDTO initDTO(BaseDTO dto) {
 		if (id != null && id > 0) {
 			dto.setId(id);
 
 		} else {
 			dto.setId(null);
 		}
-		return null;
+		return dto;
 	}
 
 }
