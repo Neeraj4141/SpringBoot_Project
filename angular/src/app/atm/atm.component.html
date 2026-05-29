@@ -1,0 +1,35 @@
+<div align="center">
+    <h2>Add ATM</h2>
+    <h1 style="color: green;">{{form.message}}</h1>
+    <form (submit)="save()">
+        <table>
+            <tr>
+                <th>BankName</th>
+                <td><input type="text" name="bankName" [(ngModel)]="form.data.bankName" placeholder="enter bankName">
+                </td>
+                <td style="color: red;">{{form.inputerror.bankName}}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td><input type="text" name="location" [(ngModel)]="form.data.location" placeholder="enter location">
+                </td>
+                <td style="color: red;">{{form.inputerror.location}}</td>
+            </tr>
+            <tr>
+                <th>Cash</th>
+                <td><input type="text" name="cashAvailable" [(ngModel)]="form.data.cashAvailable"
+                        placeholder="enter cashAvailable"></td>
+                <td style="color: red;">{{form.inputerror.cashAvailable}}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td><input type="text" name="code" [(ngModel)]="form.data.code" placeholder="enter code"></td>
+                <td style="color: red;">{{form.inputerror.code}}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="save"></td>
+            </tr>
+        </table>
+    </form>
+</div>

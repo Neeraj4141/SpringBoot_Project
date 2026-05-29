@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { CricketteamComponent } from './cricketteam/cricketteam.component';
 import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user/user-list.component';
+import { AtmComponent } from './atm/atm.component';
 
 const routes: Routes = [
 
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'user/:id',
     component: UserComponent
+  },
+  {
+    path:'atm',
+    component: AtmComponent
   }
 
 

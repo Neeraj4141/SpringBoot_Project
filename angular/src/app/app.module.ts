@@ -14,6 +14,7 @@ import { CricketteamComponent } from './cricketteam/cricketteam.component';
 import { CricketteamlistComponent } from './cricketteam/cricketteamlist.component';
 import { UserComponent } from './user/user.component';
 import { UserListComponent } from './user/user-list.component';
+import { AtmComponent } from './atm/atm.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserListComponent } from './user/user-list.component';
     CricketteamComponent,
     CricketteamlistComponent,
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    AtmComponent
   ],
   imports: [
     BrowserModule,
