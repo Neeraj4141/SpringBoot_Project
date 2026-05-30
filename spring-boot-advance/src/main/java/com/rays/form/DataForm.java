@@ -1,5 +1,6 @@
 package com.rays.form;
 
+import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 
 public class DataForm extends BaseForm {
@@ -39,6 +40,12 @@ public class DataForm extends BaseForm {
 
 	public void setDataStatus(String dataStatus) {
 		this.dataStatus = dataStatus;
+	}
+	
+	@Override
+	public BaseDTO getDto() {
+		// TODO Auto-generated method stub
+		return super.getDto();
 	}
 
 }
